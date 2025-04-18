@@ -13,6 +13,8 @@ import { verifyJWT } from "../middlewares/auth.middleware.js"
 import { upload } from "../middlewares/multer.middleware.js"
 
 const router = Router()
+
+//deprecated code of mine
 //router.use(verifyJWT) // Apply verifyJWT middleware to all routes in this file
 
 
@@ -20,10 +22,11 @@ const router = Router()
 //Public Routes For Getting random videos on front page of the application
 
 router.route("/").get(getGeneralVideos)
+router.route("/").get(verifyJWT,getUserSpecificVideos) //to get videos according to the recommendation system
 
 // Secured Routes
 router.route("/get-user-channel-videos").get(verifyJWT,getUserChannelVideos) //to get channel videos of the user
-router.route("/").get(verifyJWT,getUserSpecificVideos) //to get videos according to the recommendation system
+//uploading video
 router.route("/").post(verifyJWT,
     upload.fields([
         {
